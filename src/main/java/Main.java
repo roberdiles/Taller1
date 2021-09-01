@@ -1,4 +1,4 @@
-﻿import java.util.Random;
+import java.util.Random;
 import java.util.Scanner;
 
 public class Main {
@@ -8,11 +8,10 @@ public class Main {
     }
 
     public static void menu() {
-        mostrarMenu();
-        do
-            options(generarArreglo());
-        while (salir(validInt(getIntInput(),0,1)));
-
+        double simos[][] = generarArreglo();
+        do {
+            mostrarMenu();
+        }while (options(simos));
     }
 
     public static void mostrarMenu(){
@@ -40,9 +39,11 @@ public class Main {
     }
 
     public static boolean options(double[][] sismos){
+        boolean salir=true;
         switch (validInt(getIntInput(),0,4)) {
             case 0:
                 System.out.println("Si desea cerrar el programa ingrese '0', sino ingrese cualquier número");
+                salir=salir(validInt(getIntInput(),0,1));
                 break;
             case 1:
                 mostrarArreglo(sismos);
@@ -57,7 +58,7 @@ public class Main {
                 System.out.println(enviarSMS(sismos));
                 break;
         }
-        return false;
+        return salir;
     }
 
     public static void mostrarArreglo(double[][] sismos){
@@ -72,8 +73,8 @@ public class Main {
 
     public static double buscarMayorSismo( double[][] sismos){
         double max=0;
-        for (int i=0;i<10;i++) {
-            for (int j=0;j<7;j++){
+        for (int i=0;i<7;i++) {
+            for (int j=0;j<10;j++){
                 if (sismos[i][j]>max){
                     max=sismos[i][j];
                 }
@@ -109,8 +110,8 @@ public class Main {
 
     public static boolean salir(int input){
         if (input == 0) {
-            return true;
-        }else return false;
+            return false;
+        }else return true;
     }
 
     public static int getIntInput(){
